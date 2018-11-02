@@ -1,6 +1,9 @@
 const nerds = require('nerds');
 const {spawn} = require('child_process');
 
+// ======================================================
+// Game configuration
+// ======================================================
 const MAX_POWER = 100;
 const MAX_HEALTH = 300;
 const MIN_HEALTH = 100;
@@ -17,6 +20,8 @@ const PAIN_SOUNDS = [
 ];
 
 const CROAK_SOUND = 'oh no i am dead';
+
+// ======================================================
 
 // grabs random harry potter character
 function getRandomHarryPotter() {
