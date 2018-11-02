@@ -1,7 +1,11 @@
 const nerds = require('nerds');
 const {spawn} = require('child_process');
 
-const painSounds = [
+const MAX_POWER = 100;
+const MAX_HEALTH = 300;
+const MIN_HEALTH = 100;
+
+const PAIN_SOUNDS = [
     'owwwchee',
     'oof',
     `it's only a flesh wound`,
@@ -11,6 +15,8 @@ const painSounds = [
     'ow my spleen',
     'uuuuggggh'
 ];
+
+const CROAK_SOUND = 'oh no i am dead';
 
 // grabs random harry potter character
 function getRandomHarryPotter() {
@@ -33,9 +39,9 @@ function getRandomInt(max=100, min=50) {
 
 // transforms them into fighting characters
 function makeFighter(character){
-    character.power = getRandomInt(100);
+    character.power = getRandomInt(MAX_POWER);
     // - add on an `attack` value
-    character.health = getRandomInt(500, 100);
+    character.health = getRandomInt(MAX_HEALTH, MIN_HEALTH);
     // - add on a `health` value
 
     // character.isMale = () => character.gender === 'Male';
@@ -52,10 +58,10 @@ function makeFighter(character){
     }
 
     character.attack = (enemy) => {
-        let howMuch = getRandomInt(character.power, character.power/2);
+        let howMuch = getRandomInt(character.power, character.power/3);
         enemy.health = enemy.health - howMuch;
         // spawn('say', ['owwwwwchee']);
-        enemy.yell(painSounds[getRandomInt(painSounds.length, 0)]);
+        enemy.yell(PAIN_SOUNDS[getRandomInt(PAIN_SOUNDS.length+1, 0)]);
         character.lastDamage = howMuch;
     };
 
@@ -63,7 +69,9 @@ function makeFighter(character){
         let stillKicking = character.health > 0;
         if (!stillKicking) {
             // spawn('say', ['oh no i am dead']);
-            character.yell('oh no i am dead');
+            setTimeout(() => {
+                character.yell(CROAK_SOUND);
+            }, 1500);
         }
         return stillKicking;
     };
@@ -103,21 +111,10 @@ function toTheDeath() {
 
 toTheDeath();
 
-// let starWarsArray = nerds.resolve('Star Wars').asArray();
-
-// for (let i=0; i<harryPotterArray.length; i++) {
-//     let hpCharacter = harryPotterArray[i];
-//     let swCharacter = starWarsArray[i];
-//     // console.log(swCharacter);
-//     console.log(`${hpCharacter.first} ${hpCharacter.last} punches ${swCharacter.name} in the neck.`);
-// }
-
-
-
 
 module.exports = {
     getRandomHarryPotter,
     getRandomStarWars,
-    // makeFighter,
+    makeFighter,
     toTheDeath
 }
