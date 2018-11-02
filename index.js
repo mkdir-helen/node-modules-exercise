@@ -5,7 +5,11 @@ const painSounds = [
     'owwwchee',
     'oof',
     `it's only a flesh wound`,
-    'you punk. that hurt'
+    'you punk. that hurt',
+    'argh',
+    'i need a beer',
+    'ow my spleen',
+    'uuuuggggh'
 ];
 
 // grabs random harry potter character
@@ -31,7 +35,7 @@ function getRandomInt(max=100, min=50) {
 function makeFighter(character){
     character.power = getRandomInt(100);
     // - add on an `attack` value
-    character.health = getRandomInt(1000, 500);
+    character.health = getRandomInt(500, 100);
     // - add on a `health` value
 
     // character.isMale = () => character.gender === 'Male';
@@ -42,7 +46,7 @@ function makeFighter(character){
         if (character.isFemale()) {
             voice = 'Victoria';
         } else {
-            voice = 'Fred';
+            voice = 'Alex';
         }        
         spawn('say', ['-v', voice, what]);
     }
