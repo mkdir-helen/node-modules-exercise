@@ -15,8 +15,12 @@ const FIGHT_STYLES = [
     'karate chops',
     'drop kicks',
     'elbows',
+    'jumps on',
     'pokes',
-    'claws'
+    'claws',
+    'like a spider monkey, comes at',
+    'scowls at',
+    'poots at',
 ];
 
 const ATTACK_LOCATIONS = [
@@ -40,6 +44,16 @@ const PAIN_SOUNDS = [
     'uuuuggggh'
 ];
 
+const DEATH_TYPES = [
+    'explodes into a million pieces',
+    'turns into a pile of mush',
+    'implodes',
+    'is whisked away by hungry dementors',
+    'is hauled away in an ambulance',
+    'is swallowed up by the earth',
+    'farts until there is nothing left of them',
+];
+
 const CROAK_SOUND = 'oh no i am dead';
 
 // ======================================================
@@ -54,6 +68,10 @@ function randAttack() {
 
 function randLocation() {
     return ATTACK_LOCATIONS[getRandomInt(ATTACK_LOCATIONS.length, 0)];
+}
+
+function randDeath() {
+    return DEATH_TYPES[getRandomInt(DEATH_TYPES.length, 0)];
 }
 
 
@@ -110,7 +128,7 @@ function makeFighter(character){
             // spawn('say', ['oh no i am dead']);
             setTimeout(() => {
                 character.yell(CROAK_SOUND);
-                console.log(`\n\n\n${character.name} explodes into a million pieces...`);
+                console.log(`\n\n\n${character.name} ${randDeath()}`);
             }, 1500);
         }
         return stillKicking;
