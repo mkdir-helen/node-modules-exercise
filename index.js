@@ -8,6 +8,27 @@ const MAX_POWER = 100;
 const MAX_HEALTH = 300;
 const MIN_HEALTH = 100;
 
+const FIGHT_STYLES = [
+    'punches',
+    'kicks',
+    'bites',
+    'karate chops',
+    'drop kicks',
+    'elbows',
+    'pokes',
+    'claws'
+];
+
+const ATTACK_LOCATIONS = [
+    'neck',
+    'face',
+    'buttocks',
+    'nads',
+    'head',
+    'toe',
+    'knee'
+];
+
 const PAIN_SOUNDS = [
     'owwwchee',
     'oof',
@@ -22,6 +43,19 @@ const PAIN_SOUNDS = [
 const CROAK_SOUND = 'oh no i am dead';
 
 // ======================================================
+
+function randSound() {
+    return PAIN_SOUNDS[getRandomInt(PAIN_SOUNDS.length, 0)];    
+}
+
+function randAttack() {
+    return FIGHT_STYLES[getRandomInt(FIGHT_STYLES.length, 0)];
+}
+
+function randLocation() {
+    return ATTACK_LOCATIONS[getRandomInt(ATTACK_LOCATIONS.length, 0)];
+}
+
 
 // grabs random harry potter character
 function getRandomHarryPotter() {
@@ -66,7 +100,7 @@ function makeFighter(character){
         let howMuch = getRandomInt(character.power, character.power/3);
         enemy.health = enemy.health - howMuch;
         // spawn('say', ['owwwwwchee']);
-        enemy.yell(PAIN_SOUNDS[getRandomInt(PAIN_SOUNDS.length+1, 0)]);
+        enemy.yell(randSound());
         character.lastDamage = howMuch;
     };
 
@@ -76,6 +110,7 @@ function makeFighter(character){
             // spawn('say', ['oh no i am dead']);
             setTimeout(() => {
                 character.yell(CROAK_SOUND);
+                console.log(`\n\n\n${character.name} explodes into a million pieces...`);
             }, 1500);
         }
         return stillKicking;
@@ -95,9 +130,8 @@ function battle(f1, f2) {
     console.log(`${f2.name}: ${f2.health}`);
     console.log('--------------------------------');
     f1.attack(f2);
-    console.log(`${f1.name} attacks ${f2.name} for ${f1.lastDamage} damage!`);
-    console.log('================================');
-    
+    console.log(`${f1.name} ${randAttack()} ${f2.name} in the ${randLocation()} for ${f1.lastDamage} damage!`);
+    console.log('================================');    
 }
 
 function toTheDeath() {
